@@ -6,7 +6,7 @@ pipeline{
     }
 
     stages{
-        stage("Testing"){
+        stage('Testing'){
             steps{
              script{
                     withDockerRegistry(credentialsId: 'dockerhub_id', url: '655040006853.dkr.ecr.us-east-1.amazonaws.com/') {
