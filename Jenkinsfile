@@ -9,11 +9,11 @@ pipeline{
         stage('Testing'){
             steps{
              script{
-                    withDockerRegistry(credentialsId: 'dockerhub_id', url: '655040006853.dkr.ecr.us-east-1.amazonaws.com/') {
-                           echo "======= How can i help you ??? ========"
-                           sh "docker build -t job-app:${param.VERSION} ."
-             }   
-               
+                        withDockerRegistry(credentialsId: 'ecr:us-east-1:Job-id', url: 'https://655040006853.dkr.ecr.us-east-1.amazonaws.com/'){
+                        echo "======= How can i help you ??? ========"
+                        sh "docker build -t job-app:${param.VERSION} ."
+              
+                }
             }
         }
      }
