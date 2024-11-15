@@ -2,7 +2,7 @@ pipeline{
     agent any
     
     stages{
-        stage('Testing'){
+        stage("Testing"){
             steps{
                 echo "======= How can i help you ??? ========"
             }
