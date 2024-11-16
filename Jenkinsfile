@@ -18,7 +18,7 @@ pipeline{
                         withDockerRegistry(credentialsId: '${ECR_CRED}', url: 'https://$REPO_URL_NAME/') {
                         echo "======= How can i help you ??? ========"
                         sh "docker build -t ${APP_NAME}:${param.VERSION} ."
-                        sh "docker tag ${APP_NAME}:${param.VERSION} ${REPO_URL_NAME}/${APP_NAME}:${ECR_APP_NAME}"
+                        sh "docker tag ${APP_NAME}:${param.VERSION} ${REPO_URL_NAME}/${ECR_APP_NAME}:${params.VERSION}"
 
                 }
              }
