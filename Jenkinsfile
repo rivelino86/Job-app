@@ -19,6 +19,9 @@ pipeline{
                         echo "======= How can i help you ??? ========"
                         sh "docker build -t ${APP_NAME}:${param.VERSION} ."
                         sh "docker tag ${APP_NAME}:${param.VERSION} ${REPO_URL_NAME}/${ECR_APP_NAME}:${params.VERSION}"
+                        sh "docker tag ${APP_NAME}:${param.VERSION} ${REPO_URL_NAME}/${ECR_APP_NAME}:$latest"
+                        sh "docker push ${REPO_URL_NAME}/${ECR_APP_NAME}:${params.VERSION}"
+                        sh "docker push ${REPO_URL_NAME}/${ECR_APP_NAME}:latest"
                  }
                 }
              }
