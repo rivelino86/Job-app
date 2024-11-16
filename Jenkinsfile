@@ -14,8 +14,8 @@ pipeline{
         stage('build image'){
             steps{
                 script{
-                        withDockerRegistry(credentialsId: 'CRED_ECR', url: '655040006853.dkr.ecr.us-east-1.amazonaws.com/') {
-
+        
+                        withDockerRegistry(credentialsId: 'CRED_ECR', url: 'https:// ${REPO_URL_NAME}/') {
                         echo "======= How can i help you ??? ========"
                         sh "docker build -t ${APP_NAME}:${param.VERSION} ."
                         sh "docker tag ${APP_NAME}:${param.VERSION} ${REPO_URL_NAME}/${ECR_APP_NAME}:${params.VERSION}"
