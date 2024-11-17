@@ -31,12 +31,6 @@ pipeline{
                         // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
                   }
                  }
-        stage('scan by trivy'){
-                    steps{
-                       sh "trivy job-app:${params.VERSION}"
-                
-                    }
-                 }
               }
             }
                stage("Update ECS") {
