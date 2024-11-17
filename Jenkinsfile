@@ -24,11 +24,11 @@ pipeline{
                              // Build the Docker image
                         sh "docker build -t job-app:${params.VERSION} ."
                         //     // Tag the image image for ECR
-                        // sh "docker tag job-app:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
-                        // sh "docker tag job-app:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:latest"
+                         sh "docker tag job-app:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
+                         sh "docker tag job-app:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:latest"
                         //      // Push iamge to ECR
-                        // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:latest"
-                        // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
+                         sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:latest"
+                         sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
                      }
                     }
 
