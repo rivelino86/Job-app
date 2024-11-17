@@ -18,8 +18,8 @@ pipeline{
                        withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL) {
                         echo "======= How can i help you ??? ========"
                         sh "docker build -t job-app:${params.VERSION} ."
-                        sh "docker tag find-job:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
-                        sh "docker tag find-job:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:latest"
+                        sh "docker tag job-app:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
+                        sh "docker tag job-app:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:latest"
 
                         sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:latest"
                         sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
