@@ -29,6 +29,7 @@ pipeline{
                         //      // Push iamge to ECR
                         // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:latest"
                         // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
+                       }
                   }
                  }
               }
@@ -40,12 +41,12 @@ pipeline{
                        
                         }
                     }
-                 }
-            }
+                 
         stage('Update ECS') {
             steps {  
                       sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
         }
      }
    }
+}
  
