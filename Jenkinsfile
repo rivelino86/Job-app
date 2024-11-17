@@ -7,7 +7,7 @@ pipeline{
      environment{
           REPO_URL_NAME = '655040006853.dkr.ecr.us-east-1.amazonaws.com'
           APP_NAME ='job-app'
-          ECR_APP_NAME = 'find-job'
+          ECR_APP_NAME = 'job-app'
           CRED_ECR = 'ecr:us-east-1:b1e04467-d055-4b14-a3ad-79ccb2653ec0'
         FULL_REPO_URL = "https://${REPO_URL_NAME}"
      }
