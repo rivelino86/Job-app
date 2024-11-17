@@ -32,6 +32,12 @@ pipeline{
                   }
                  }
               }
+               stage('scan by trivy'){
+                    steps{
+                       sh "trivy job-app:${params.VERSION}"
+                
+                    }
+                 }
             }
                stage("Update ECS") {
             steps {  
