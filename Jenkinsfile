@@ -32,19 +32,19 @@ pipeline{
                   }
                  }
               }
-               stage('scan by trivy'){
+        stage('scan by trivy'){
                     steps{
 
-                           echo "======= Running Trivy Scan ======="
+                       echo "======= Running Trivy Scan ======="
                        sh "trivy image --severity HIGH,CRITICAL job-app:${params.VERSION}" 
                        
                         }
                     }
                  }
             }
-            stage("Update ECS") {
+        stage('Update ECS') {
             steps {  
-                    sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
+                      sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
         }
      }
    }
