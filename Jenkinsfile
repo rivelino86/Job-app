@@ -29,8 +29,19 @@ pipeline{
                         //      // Push iamge to ECR
                         // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:latest"
                         // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
-                       }
+                     }
+                    }
+
                   }
+                 }
+        stage('Install Trivy') {
+                   steps {
+                        sh '''
+                        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
+                        chmod +x trivy
+                        mv trivy /usr/local/bin/
+                        '''
+                  
                  }
               }
         stage('scan by trivy'){
