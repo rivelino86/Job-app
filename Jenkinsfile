@@ -29,11 +29,11 @@ pipeline{
                         //      // Push iamge to ECR
                         // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:latest"
                         // sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
-                    }
+                  }
                  }
-                 stage('scan by trivy'){
+        stage('scan by trivy'){
                     steps{
-                        sh 'trivy job-app:${params.VERSION}'
+                       sh "trivy job-app:${params.VERSION}"
                 
                     }
                  }
