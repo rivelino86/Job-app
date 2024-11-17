@@ -17,7 +17,7 @@ pipeline{
                 script{
                        withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL){
                         echo "======= How can i help you ??? ========"
-                        sh "docker build -t find-job:1.2.1 ."
+                        sh "docker build -t job-app ."
                         sh "docker tag ${APP_NAME}:${params.VERSION} ${REPO_URL_NAME}/${ECR_APP_NAME}:${params.VERSION}"
                         sh "docker tag ${APP_NAME}:${params.VERSION} ${REPO_URL_NAME}/${ECR_APP_NAME}:$latest"
                         sh "docker push ${REPO_URL_NAME}/${ECR_APP_NAME}:${params.VERSION}"
