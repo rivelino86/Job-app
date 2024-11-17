@@ -15,7 +15,7 @@ pipeline{
         stage('build image'){
             steps{
                 script{
-                       withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL){
+                       withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL) {
                         echo "======= How can i help you ??? ========"
                         sh "docker build -t job-app ."
                         sh "docker tag find-job:${params.VERSION} ${REPO_URL_NAME}/${ECR_APP_NAME}:${params.VERSION}"
