@@ -28,13 +28,13 @@ pipeline{
                         sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:latest"
                         sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
                  }
-                }
-                 stage("Update ECS") {
+              }
+            }
+               stage("Update ECS") {
             steps {  
                     sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
-            }
         }
      }
-    }
-    }
+   }
+ }
 }
