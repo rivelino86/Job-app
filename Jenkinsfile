@@ -38,10 +38,9 @@ pipeline{
                    steps {
                         sh '''
                         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
-                        chmod +x trivy
-                        mv trivy /usr/local/bin/
+                        chmod +x ./bin/trivy
+                        mv ./bin/trivy /usr/local/bin/trivy
                         '''
-                  
                  }
               }
         stage('scan by trivy'){
