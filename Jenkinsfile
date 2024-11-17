@@ -34,8 +34,11 @@ pipeline{
               }
                stage('scan by trivy'){
                     steps{
-                       sh "trivy job-app:${params.VERSION}"
-                
+
+                           echo "======= Running Trivy Scan ======="
+                       sh "trivy image --severity HIGH,CRITICAL job-app:${params.VERSION}" 
+                       
+                        }
                     }
                  }
             }
@@ -45,4 +48,4 @@ pipeline{
         }
      }
    }
- }
+ 
