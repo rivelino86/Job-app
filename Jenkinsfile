@@ -47,16 +47,16 @@ pipeline{
                     steps{
 
                        echo "======= Running Trivy Scan ======="
-                       sh "trivy image --severity HIGH,CRITICAL job-app:${params.VERSION}" 
+                       sh "trivy image job-app:${params.VERSION}" 
                        
                         }
                     }
                  
-        stage('Update ECS') {
-            steps {  
-                      sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
-        }
-     }
+        //stage('Update ECS') {
+          //  steps {  
+                    //  sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
+        //}
+     //}
    }
 }
  
