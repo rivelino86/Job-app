@@ -2,7 +2,7 @@ pipeline{
     agent any
      
      parameters {
-        string(name: 'VERSION', defaultValue: '1.0.0', description: 'App to deploy')
+        string(name: 'VERSION', defaultValue: '1.2.1', description: 'App to deploy')
     }
      environment{
           REPO_URL_NAME = '655040006853.dkr.ecr.us-east-1.amazonaws.com'
