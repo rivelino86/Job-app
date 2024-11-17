@@ -46,7 +46,7 @@ pipeline{
         stage('scan by trivy'){
                     steps{
 
-                      // echo "======= Running Trivy Scan ======="
+                       echo "======= Running Trivy Scan ======="
                        sh "trivy image --severity HIGH,CRITICAL job-app:${params.VERSION}" 
                        
                         }
