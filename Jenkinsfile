@@ -39,7 +39,7 @@ pipeline{
                         sh '''
                         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
                         chmod +x ./bin/trivy
-                        mv ./bin/trivy /usr/local/bin/trivy
+                        sudo mv ./bin/trivy /usr/local/bin/trivy
                         '''
                  }
               }
