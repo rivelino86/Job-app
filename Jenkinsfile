@@ -16,7 +16,7 @@ pipeline{
 
      }
     stages{
-        stage('build image'){
+        stage("build image"){
             steps{
                 script{
                        withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL) {
