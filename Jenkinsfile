@@ -16,6 +16,11 @@ pipeline{
 
      }
     stages{
+        stage('scan file'){
+            steps{
+                sh "trivy fs --format  table -o job-app.html ."
+            }
+        }
         stage("build image"){
             steps{
                 script{
@@ -47,16 +52,17 @@ pipeline{
                     steps{
 
                        echo "======= Running Trivy Scan ======="
-                       sh "trivy image job-app:${params.VERSION}" 
+                       //sh "trivy image --severity HIGH,CRITICAL job-app:${params.VERSION}" 
+                       sh "trivy image --format table -o docker_image_job-app:${params.VERSION}.html ${REPO_URL_NAME}/${ECR_NAME}:latest"
                        
                         }
                     }
                  
-        //stage('Update ECS') {
-          //  steps {  
-                    //  sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
-        //}
-     //}
+        stage('Update ECS') {
+            steps {  
+                      sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
+        }
+     }
    }
 }
  
