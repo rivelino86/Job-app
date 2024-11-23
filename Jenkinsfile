@@ -31,13 +31,13 @@ pipeline {
     }
 }
 
-     stage("Scan Files with Trivy") {
+     stage('Scan Files with Trivy') {
             steps {
                 sh "trivy fs --format table -o job-app-scan-report.html ."
             }
         }
 
-    stage("Build and Push Docker Image") {
+    stage('Build and Push Docker Image') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL) {
@@ -65,14 +65,14 @@ pipeline {
             }
         }
 
-    stage("Scan Docker Image with Trivy") {
+    stage('Scan Docker Image with Trivy') {
             steps {
                 echo "Scanning Docker image with Trivy"
                   sh "trivy image --format table -o docker_image_scan_report_${params.VERSION}.html ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
             }
         }
 
-     stage("Update ECS") {
+     stage('Update ECS') {
             steps {
                 sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
             }
