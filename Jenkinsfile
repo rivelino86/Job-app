@@ -20,7 +20,7 @@ pipeline {
         stage("Sonar Scanner") {
             steps {
                 script {
-                  withSonarQubeEnv(credentialsId: mySonarQube) {
+                  withSonarQubeEnv(credentialsId: 'mySonarQube') {
   
                     sh """
                        ${SONAR_SCANNER}/bin/sonar-scanner \
