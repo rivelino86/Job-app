@@ -22,8 +22,10 @@ pipeline {
                   withSonarQubeEnv(credentialsId: 'Sonar_cred') {
   
                     sh '''
-                        ${SONAR_SCANNER}/bin/sonar-scanner \
-                        
+                        echo '************Sonar is ready to scan the code0***********' \
+                        -Dsonar.projectKey=Job-app \
+                        // -Dsonar.sources=. \
+                        // -Dsonar.projectName=Job-app 
                         '''
                     }
                 }
