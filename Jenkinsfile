@@ -23,9 +23,9 @@ pipeline {
                         echo "Running SonarQube Scanner"
                         sh '''
                         ${SONAR_SCANNER}/bin/sonar-scanner \
-                        -Dsonar.projectKey="job-app" \
+                        -Dsonar.projectKey='job-app' \
                         -Dsonar.sources=. \
-                        -Dsonar.projectName="job-app" \
+                        -Dsonar.projectName='job-app' \
                         -Dsonar.java.binaries=.
                         '''
                     }
