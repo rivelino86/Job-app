@@ -25,7 +25,7 @@ pipeline {
                         ${SONAR_SCANNER}/bin/sonar-scanner \
                         -Dsonar.projectKey=Job-app \
                         -Dsonar.sources=. \
-                        -Dsonar.projectName=Job-app \
+                        -Dsonar.projectName=Job-app 
                         '''
                     }
                 }
