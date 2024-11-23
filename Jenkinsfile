@@ -13,6 +13,8 @@ pipeline{
         CLUSTER_NAME = 'job-cluster'
         SERVICE_NAME = 'job-service'
 
+        SONAR_SCANNER = tool 'sonar-scanner'
+
 
      }
     stages{
@@ -22,7 +24,8 @@ pipeline{
             steps {
                 script{
                       withSonarQubeEnv(credentialsId: 'Sonar_cred') {
-                      sh "echo sopnar is ready to scan"
+                      echo "sopnar is ready to scan"
+                      
                }
               }
           }
@@ -69,11 +72,11 @@ pipeline{
                         }
                     }
                  
-        stage('Update ECS') {
-            steps {  
-                      sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
-        }
-     }
+        // stage('Update ECS') {
+        //     steps {  
+        //               sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
+        // }
+     //}
    }
 }
  
