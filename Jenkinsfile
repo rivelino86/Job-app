@@ -12,7 +12,7 @@ pipeline {
         FULL_REPO_URL = "https://${REPO_URL_NAME}"
         CLUSTER_NAME = 'job-cluster'
         SERVICE_NAME = 'job-service'
-        SONAR_SCANNER = tool name: 'Sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        SONAR_SCANNER = tool 'Sonar-scanner'
     }
 
     stages {
