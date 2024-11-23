@@ -19,8 +19,12 @@ pipeline{
 
 
         stage("Sonar scanner"){
-              withSonarQubeEnv(credentialsId: 'Sonar_cred') {
-               sh "echo sopnar is ready to scan"
+            steps {
+                script{
+                      withSonarQubeEnv(credentialsId: 'Sonar_cred') {
+                      sh "echo sopnar is ready to scan"
+               }
+              }
           }
         }
         stage('scan file'){
