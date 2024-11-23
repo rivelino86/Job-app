@@ -17,7 +17,7 @@ pipeline {
     }
 
     stages {
-        stage('Install Dependencies') {
+        stage('Install trivy') {
             steps {
                 script {
                     // Install Trivy if not already installed
