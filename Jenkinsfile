@@ -13,7 +13,7 @@ pipeline{
         CLUSTER_NAME = 'job-cluster'
         SERVICE_NAME = 'job-service'
 
-        SONAR_SCANNER = tool 'sonar'
+        SONAR_SCANNER = tool 'sonar-scanner'
 
 
      }
