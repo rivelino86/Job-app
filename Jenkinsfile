@@ -5,15 +5,15 @@ pipeline{
         string(name: 'VERSION', defaultValue: '1.2.1', description: 'App to deploy')
     }
      environment{
-          REPO_URL_NAME = '655040006853.dkr.ecr.us-east-1.amazonaws.com'
-          //APP_NAME ='job-app'
-          ECR_NAME = 'job-app'
-          CRED_ECR = 'ecr:us-east-1:b1e04467-d055-4b14-a3ad-79ccb2653ec0'
+        REPO_URL_NAME = '655040006853.dkr.ecr.us-east-1.amazonaws.com'
+        //APP_NAME ='job-app'
+        ECR_NAME = 'job-app'
+        CRED_ECR = 'ecr:us-east-1:b1e04467-d055-4b14-a3ad-79ccb2653ec0'
         FULL_REPO_URL = "https://${REPO_URL_NAME}"
         CLUSTER_NAME = 'job-cluster'
         SERVICE_NAME = 'job-service'
 
-       // SONAR_SCANNER = tool 'sonar-scanner'
+        SONAR_SCANNER = tool 'sonar-scanner'
 
 
      }
@@ -24,7 +24,15 @@ pipeline{
             steps {
                 script{
                       withSonarQubeEnv(credentialsId: 'Sonar_cred') {
-                      echo "sopnar is ready to scan"
+                     // echo "sonar is ready to scan code"
+                     echo "${SONAR_SCANNER}"
+                      sh '''
+                       ${SONAR_SCANNER}/bin/sonar-scanner \
+                       -Dsonar.projectkey= 'job-app' \
+                       -Dsonar.source =. \
+                       -Dsonar.projectNmae = 'job-app'
+                       -Dsonar.java.binaries=. \
+                      '''
                       
                }
               }
