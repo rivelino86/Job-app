@@ -19,13 +19,13 @@ pipeline {
         stage("Sonar Scanner") {
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'SonarQube') {
+                    withSonarQubeEnv('SonarQube') {
                         echo "Running SonarQube Scanner"
                         sh '''
                         ${SONAR_SCANNER}/bin/sonar-scanner \
-                        -Dsonar.projectKey=job-app \
+                        -Dsonar.projectKey="job-app" \
                         -Dsonar.sources=. \
-                        -Dsonar.projectName=job-app \
+                        -Dsonar.projectName="job-app" \
                         -Dsonar.java.binaries=.
                         '''
                     }
@@ -74,10 +74,10 @@ pipeline {
             }
         }
 
-        stage("Update ECS") {
-            steps {
-                sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
-            }
-        }
+        // stage("Update ECS") {
+        //     steps {
+        //         sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
+        //     }
+        // }
     }
 }
