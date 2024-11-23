@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'VERSION', defaultValue: '1.2.1', description: 'App to deploy')
+        string(name: 'VERSION', defaultValue: '1.2.1', description: 'App version to deploy')
     }
 
     environment {
@@ -12,50 +12,50 @@ pipeline {
         FULL_REPO_URL = "https://${REPO_URL_NAME}"
         CLUSTER_NAME = 'job-cluster'
         SERVICE_NAME = 'job-service'
-        SONAR_SCANNER = tool 'Sonar-scanner'
+        SONAR_SCANNER = tool name: 'Sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     }
 
-    stage("Sonar Scanner") {
-       steps {
-         script {
-            withSonarQubeEnv(credentialsId: 'SonarQube') {
-                sh '''
-                ${SONAR_SCANNER}/bin/sonar-scanner \
-                -Dsonar.projectKey=${params.VERSION} \
-                -Dsonar.sources=. \
-                -Dsonar.projectName=${params.VERSION} \
-                -Dsonar.java.binaries=. 
-                '''
-            }
-        }
-    }
-}
-
-     stage('Scan Files with Trivy') {
-            steps {
-                sh "trivy fs --format table -o job-app-scan-report.html ."
-            }
-        }
-
-    stage('Build and Push Docker Image') {
+    stages {
+        stage("Sonar Scanner") {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL) {
-                        echo "Building Docker image and pushing to ECR"
-                        // Build the Docker image
-                        sh "docker build -t job-app:${params.VERSION} ."
-                        // Tag the image for ECR
-                        sh "docker tag job-app:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
-                        sh "docker tag job-app:${params.VERSION} ${REPO_URL_NAME}/${ECR_NAME}:latest"
-                        // Push the image to ECR
-                        sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
-                        sh "docker push ${REPO_URL_NAME}/${ECR_NAME}:latest"
+                    withSonarQubeEnv('SonarQube') {
+                        sh '''
+                        ${SONAR_SCANNER}/bin/sonar-scanner \
+                        -Dsonar.projectKey=job-app \
+                        -Dsonar.sources=. \
+                        -Dsonar.projectName=job-app \
+                        -Dsonar.java.binaries=. 
+                        '''
                     }
                 }
             }
         }
 
-    stage("Install Trivy") {
+        stage('Scan Files with Trivy') {
+            steps {
+                sh "trivy fs --format table -o job-app-scan-report.html ."
+            }
+        }
+
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL) {
+                        echo "Building Docker image and pushing to ECR"
+                        sh '''
+                        docker build -t job-app:${VERSION} .
+                        docker tag job-app:${VERSION} ${REPO_URL_NAME}/${ECR_NAME}:${VERSION}
+                        docker tag job-app:${VERSION} ${REPO_URL_NAME}/${ECR_NAME}:latest
+                        docker push ${REPO_URL_NAME}/${ECR_NAME}:${VERSION}
+                        docker push ${REPO_URL_NAME}/${ECR_NAME}:latest
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage("Install Trivy") {
             steps {
                 sh '''
                 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
@@ -65,18 +65,17 @@ pipeline {
             }
         }
 
-    stage('Scan Docker Image with Trivy') {
+        stage('Scan Docker Image with Trivy') {
             steps {
                 echo "Scanning Docker image with Trivy"
-                  sh "trivy image --format table -o docker_image_scan_report_${params.VERSION}.html ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
+                sh "trivy image --format table -o docker_image_scan_report_${VERSION}.html ${REPO_URL_NAME}/${ECR_NAME}:${VERSION}"
             }
         }
 
-     stage('Update ECS') {
+        stage('Update ECS') {
             steps {
                 sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
             }
         }
-     }
-
-
+    }
+}
