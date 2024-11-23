@@ -21,13 +21,13 @@ pipeline {
                 script {
                   withSonarQubeEnv('mySonarQube') {
   
-                    sh '''
-                       echo 'Sonar is reday to scan the code'
+                    sh """
+                       ${SONAR_SCANNER}/bin/sonar-scanner.
                         -Dsonar.projectKey=Job-app \
                         -Dsonar.sources=. \
                         -Dsonar.projectName=Job-app \
                         -Dsonar.java.binaries=.
-                        '''
+                        """
                     }
                 }
             }
