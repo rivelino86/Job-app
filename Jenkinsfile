@@ -16,6 +16,13 @@ pipeline{
 
      }
     stages{
+
+
+        stage("Sonar scanner"){
+              withSonarQubeEnv(credentialsId: 'Sonar_cred') {
+               sh "echo sopnar is ready to scan"
+          }
+        }
         stage('scan file'){
             steps{
                 sh "trivy fs --format  table -o job-app.html ."
