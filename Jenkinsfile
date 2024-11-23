@@ -32,9 +32,7 @@ pipeline {
             }
         }
 
-        stage('Security and Quality Checks') {
-            parallel {
-                stage('SonarQube Analysis') {
+         stage('SonarQube Analysis') {
                     steps {
                         withSonarQubeEnv(credentialsId: 'mySonarQube') {
                             sh """
@@ -56,21 +54,21 @@ pipeline {
                     }
                 }
             }
-        }
+        
 
         stage('Build and Push Docker Image') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL) {
                         echo "Building Docker image and pushing to ECR"
-                        sh """
+                        sh '''
                            docker build -t job-app:${VERSION} .
                            docker tag job-app:${VERSION} ${REPO_URL_NAME}/${ECR_NAME}:${VERSION}
                            docker tag job-app:${VERSION} ${REPO_URL_NAME}/${ECR_NAME}:latest
                            docker tag job-app:${VERSION} ${REPO_URL_NAME}/${ECR_NAME}:latest
                            docker push ${REPO_URL_NAME}/${ECR_NAME}:${VERSION}
                            docker push ${REPO_URL_NAME}/${ECR_NAME}:latest
-                           """
+                           '''
                      }
                   }
          stage('Scan Docker Image with Trivy') {
@@ -86,5 +84,5 @@ pipeline {
          }
     }
  }
-}
+
         
