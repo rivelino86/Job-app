@@ -23,9 +23,9 @@ pipeline {
   
                     sh '''
                        echo 'Sonar is reday to scan the code'
-                        -Dsonar.projectKey='Job-app' \
+                        -Dsonar.projectKey=Job-app \
                         -Dsonar.sources=. \
-                        -Dsonar.projectName='Job-app' \
+                        -Dsonar.projectName=Job-app \
                         -Dsonar.java.binaries=.
                         '''
                     }
