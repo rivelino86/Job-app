@@ -23,7 +23,7 @@ pipeline {
                   withSonarQubeEnv('mySonarQube') {
   
                     sh """
-                       ${SONAR_SCANNER}/bin/sonar-scanner
+                       ${SONAR_SCANNER}/bin/sonar-scanner \
                         -Dsonar.projectKey='Job-app' \
                         -Dsonar.sources=. \
                         -Dsonar.projectName='Job-app' \
