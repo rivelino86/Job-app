@@ -6,12 +6,12 @@ pipeline {
     }
 
     environment {
-        REPO_URL_NAME = '655040006853.dkr.ecr.us-east-1.amazonaws.com'
-        ECR_NAME = 'job-app'
-        CRED_ECR = 'ecr:us-east-1:b1e04467-d055-4b14-a3ad-79ccb2653ec0'
+        REPO_URL_NAME = '655040006853.dkr.ecr.us-east-1.amazonaws.com' // This variable refers to the link of the ECR repository
+        ECR_NAME = 'job-app' // This variable is used to give the name of my image in ECR
+        CRED_ECR = 'ecr:us-east-1:b1e04467-d055-4b14-a3ad-79ccb2653ec0' // This variable refers to my AWS credential
         FULL_REPO_URL = "https://${REPO_URL_NAME}"
-        CLUSTER_NAME = 'job-cluster'
-        SERVICE_NAME = 'job-service'
+        CLUSTER_NAME = 'job-cluster' // My ECS cluster name
+        SERVICE_NAME = 'job-service' // My ECS service name
         SONAR_SCANNER = tool 'Sonar-scanner'
     }
 
