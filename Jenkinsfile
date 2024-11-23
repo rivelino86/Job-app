@@ -21,12 +21,10 @@ pipeline {
             withSonarQubeEnv(credentialsId: 'SonarQube') {
                 sh '''
                 ${SONAR_SCANNER}/bin/sonar-scanner \
-                -Dsonar.projectKey=job-app \
+                -Dsonar.projectKey=${params.VERSION} \
                 -Dsonar.sources=. \
-                -Dsonar.projectName=job-app \
-                -Dsonar.java.binaries=. \
-                -Dsonar.host.url=http://<SonarQube_Server_IP>:<Port> \
-                -Dsonar.login=<Authentication_Token>
+                -Dsonar.projectName=${params.VERSION} \
+                -Dsonar.java.binaries=. 
                 '''
             }
         }
@@ -79,4 +77,5 @@ pipeline {
         //         sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
         //     }
         // }
-    
+}
+
