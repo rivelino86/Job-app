@@ -28,9 +28,9 @@ pipeline{
                      echo "${SONAR_SCANNER}"
                       sh '''
                        ${SONAR_SCANNER}/bin/sonar-scanner \
-                       -Dsonar.projectKey='job-app' \
+                       -Dsonar.projectKey=job-app \
                        -Dsonar.sources =. \
-                       -Dsonar.projectNma='job-app'
+                       -Dsonar.projectNma=job-app
                        -Dsonar.java.binaries=. \
                       '''
                       
