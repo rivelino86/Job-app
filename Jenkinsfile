@@ -12,7 +12,7 @@ pipeline {
         FULL_REPO_URL = "https://${REPO_URL_NAME}"
         CLUSTER_NAME = 'job-cluster' // My ECS cluster name
         SERVICE_NAME = 'job-service' // My ECS service name
-        SONAR_SCANNER = tool 'Sonar-scanner'
+        SONAR_SCANNER = tool 'sonar-scanner'
     }
 
     stages {
