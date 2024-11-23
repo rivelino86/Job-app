@@ -23,12 +23,12 @@ pipeline{
         stage("Sonar scanner"){
             steps {
                 script{
-                      withSonarQubeEnv(credentialsId: 'Sonar_cred') {
+                      withSonarQubeEnv(credentialsId: 'SonarQube') {
                      // echo "sonar is ready to scan code"
                      echo "${SONAR_SCANNER}"
                       sh '''
                        ${SONAR_SCANNER}/bin/sonar-scanner \
-                       -Dsonar.projectkey= 'job-app' \
+                       -Dsonar.projectKey= 'job-app' \
                        -Dsonar.source =. \
                        -Dsonar.projectNmae = 'job-app'
                        -Dsonar.java.binaries=. \
