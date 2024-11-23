@@ -19,8 +19,9 @@ pipeline {
         stage("Sonar Scanner") {
             steps {
                 script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh '''
+                   withSonarQubeEnv('SonarQube') {
+    
+                    sh '''
                         ${SONAR_SCANNER}/bin/sonar-scanner \
                         -Dsonar.projectKey=Job-app \
                         -Dsonar.sources=. \
