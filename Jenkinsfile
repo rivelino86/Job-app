@@ -32,6 +32,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
+                script{
                 withSonarQubeEnv(credentialsId: 'mySonarQube') {
                     sh """
                     ${SONAR_SCANNER}/bin/sonar-scanner \
@@ -43,8 +44,8 @@ pipeline {
                     """
                 }
             }
+          }
         }
-
         stage('Filesystem Security Scan') {
             steps {
                 sh "trivy fs --format table -o job-app-scan-report.html ."
