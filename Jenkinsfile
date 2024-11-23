@@ -26,7 +26,7 @@ pipeline {
                        
                         -Dsonar.projectKey=Job-app \
                         -Dsonar.sources=. \
-                        -Dsonar.projectName=Job-app 
+                        -Dsonar.projectName=Job-app \
                         -Dsonar.java.binaries=.
                         '''
                     }
