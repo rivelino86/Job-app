@@ -22,10 +22,10 @@ pipeline {
                   withSonarQubeEnv(credentialsId: 'Sonar_cred') {
   
                     sh '''
-                        echo '************Sonar is ready to scan the code0***********' \
+                        echo '************Sonar is ready to scan the code***********' \
                         -Dsonar.projectKey=Job-app \
-                        // -Dsonar.sources=. \
-                        // -Dsonar.projectName=Job-app 
+                        -Dsonar.sources=. \
+                        -Dsonar.projectName=Job-app 
                         '''
                     }
                 }
@@ -72,10 +72,10 @@ pipeline {
             }
         }
 
-        stage('Update ECS') {
-            steps {
-                sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
-            }
-        }
+        // stage('Update ECS') {
+        //     steps {
+        //         sh "aws ecs update-service --cluster ${CLUSTER_NAME} --service ${SERVICE_NAME} --force-new-deployment"
+        //     }
+        // }
     }
 }
