@@ -19,7 +19,7 @@ pipeline {
         stage("Sonar Scanner") {
             steps {
                 script {
-                  withSonarQubeEnv(credentialsId: 'Sonar_cred') {
+                  withSonarQubeEnv('mySonarQube') {
   
                     sh '''
                         echo '************Sonar is ready to scan the code***********' \
