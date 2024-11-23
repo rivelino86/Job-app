@@ -31,13 +31,13 @@ pipeline {
     }
 }
 
-        stage("Scan Files with Trivy") {
+     stage("Scan Files with Trivy") {
             steps {
                 sh "trivy fs --format table -o job-app-scan-report.html ."
             }
         }
 
-        stage("Build and Push Docker Image") {
+    stage("Build and Push Docker Image") {
             steps {
                 script {
                     withDockerRegistry(credentialsId: CRED_ECR, url: FULL_REPO_URL) {
@@ -55,7 +55,7 @@ pipeline {
             }
         }
 
-        stage("Install Trivy") {
+    stage("Install Trivy") {
             steps {
                 sh '''
                 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
@@ -65,10 +65,10 @@ pipeline {
             }
         }
 
-        stage("Scan Docker Image with Trivy") {
+    stage("Scan Docker Image with Trivy") {
             steps {
                 echo "Scanning Docker image with Trivy"
-                sh "trivy image --format table -o docker_image_scan_report_${params.VERSION}.html ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
+                  sh "trivy image --format table -o docker_image_scan_report_${params.VERSION}.html ${REPO_URL_NAME}/${ECR_NAME}:${params.VERSION}"
             }
         }
 
