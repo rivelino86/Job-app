@@ -24,10 +24,7 @@ pipeline {
   
                     sh """
                        ${SONAR_SCANNER}/bin/sonar-scanner \
-                        -Dsonar.projectKey='Job_app' \
-                        -Dsonar.sources=. \
-                        -Dsonar.projectName='Job-app' \
-                        -Dsonar.java.binaries=.
+                       
                         """
                     }
                 }
