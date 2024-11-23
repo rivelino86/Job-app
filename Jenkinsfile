@@ -15,23 +15,23 @@ pipeline {
         SONAR_SCANNER = tool 'Sonar-scanner'
     }
 
-    stages {
-        stage("Sonar Scanner") {
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') {
-                        echo "Running SonarQube Scanner"
-                        sh '''
-                        ${SONAR_SCANNER}/bin/sonar-scanner \
-                        -Dsonar.projectKey='job-app' \
-                        -Dsonar.sources=. \
-                        -Dsonar.projectName='job-app' \
-                        -Dsonar.java.binaries=.
-                        '''
-                    }
-                }
+    stage("Sonar Scanner") {
+    steps {
+        script {
+            withSonarQubeEnv(credentialsId: 'SonarQube') {
+                sh '''
+                ${SONAR_SCANNER}/bin/sonar-scanner \
+                -Dsonar.projectKey=job-app \
+                -Dsonar.sources=. \
+                -Dsonar.projectName=job-app \
+                -Dsonar.java.binaries=. \
+                -Dsonar.host.url=http://<SonarQube_Server_IP>:<Port> \
+                -Dsonar.login=<Authentication_Token>
+                '''
             }
         }
+    }
+}
 
         stage("Scan Files with Trivy") {
             steps {
