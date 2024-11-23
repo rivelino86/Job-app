@@ -22,7 +22,8 @@ pipeline {
                   withSonarQubeEnv('mySonarQube') {
   
                     sh '''
-                        echo '************Sonar is ready to scan the code***********' \
+                       ${SONAR_SCANNER}/bin/sonar-scanner \
+                       
                         -Dsonar.projectKey=Job-app \
                         -Dsonar.sources=. \
                         -Dsonar.projectName=Job-app 
